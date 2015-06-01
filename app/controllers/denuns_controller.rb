@@ -10,7 +10,7 @@ class DenunsController < ApplicationController
   end
 
   def show_all
-  @denuncias = Denun.all
+  @denuncias = Denun.where( hidden: FALSE)
   end
 
   def like
@@ -23,6 +23,9 @@ class DenunsController < ApplicationController
   def dislike
     denun = Denun.find(params[:id])
     denun.dislike += 1
+    if denun.dislike == 20
+      denun.hidden = TRUE
+    end
     denun.save
     redirect_to denuns_show_all_path
   end
