@@ -1,2 +1,5 @@
-<h1>Denuns#new</h1>
-<p>Find me in app/views/denuns/new.html.erb</p>
+<%= simple_form_for @denun do |f| %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.button :submit %>
+<% end %>
