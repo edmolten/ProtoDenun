@@ -10,6 +10,21 @@ class DenunsController < ApplicationController
   end
 
   def show_all
+  @denuncias = Denun.all
+  end
+
+  def like
+    denun = Denun.find(params[:id])
+    denun.like += 1
+    denun.save
+    redirect_to denuns_show_all_path
+  end
+
+  def dislike
+    denun = Denun.find(params[:id])
+    denun.dislike += 1
+    denun.save
+    redirect_to denuns_show_all_path
   end
 
   def denun_params
