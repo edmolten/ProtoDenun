@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601210035) do
+ActiveRecord::Schema.define(version: 20150602221937) do
 
   create_table "denun_types", force: true do |t|
     t.string   "name"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20150601210035) do
   create_table "denuns", force: true do |t|
     t.string   "name"
     t.string   "description"
-    t.integer  "like",        default: 0
+    t.integer  "like",        default: 1
     t.integer  "dislike",     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
