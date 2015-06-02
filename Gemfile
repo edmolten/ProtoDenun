@@ -40,3 +40,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 #del proyecto
 gem 'simple_form'
+
+gem 'coffee-script-source', '1.8.0'
