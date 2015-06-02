@@ -1,4 +1,8 @@
 class DenunsController < ApplicationController
+
+  MIN_DISLIKES = 10
+  DISLIKES_LIKES_PROPORTION = 5/4
+
   def new
     @denun = Denun.new
   end
@@ -30,7 +34,15 @@ class DenunsController < ApplicationController
 
 
   def ocultar denun
-    denun
+    likes = denun.like
+    dislikes = denun.dislike
+    if likes == 0 and dislikes == 0
+      return denun
+    end
+    if dislikes > MIN_DISLIKES and dislikes/likes > DISLIKES_LIKES_PROPORTION
+      denun.hidden = True
+    end
+    return denun
   end
 
   def denun_params
