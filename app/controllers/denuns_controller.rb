@@ -23,11 +23,14 @@ class DenunsController < ApplicationController
   def dislike
     denun = Denun.find(params[:id])
     denun.dislike += 1
-    if denun.dislike == 20
-      denun.hidden = TRUE
-    end
+    denun = ocultar denun
     denun.save
     redirect_to denuns_show_all_path
+  end
+
+
+  def ocultar denun
+    denun
   end
 
   def denun_params
