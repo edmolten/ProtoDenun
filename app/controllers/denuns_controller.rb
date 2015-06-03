@@ -8,24 +8,24 @@ class DenunsController < ApplicationController
   end
 
   def create
-    denun = Denun.new(denun_params)
+    denun = Denun.new denun_params
     denun.save
     redirect_to root_path
   end
 
   def show_all
-  @denuncias = Denun.where( hidden: FALSE)
+    @denuncias = Denun.where hidden: FALSE
   end
 
   def like
-    denun = Denun.find(params[:id])
+    denun = Denun.find params[:id]
     denun.like += 1
     denun.save
     redirect_to denuns_show_all_path
   end
 
   def dislike
-    denun = Denun.find(params[:id])
+    denun = Denun.find params[:id]
     denun.dislike += 1
     denun = ocultar denun
     denun.save
@@ -40,13 +40,13 @@ class DenunsController < ApplicationController
       return denun
     end
     if dislikes > MIN_DISLIKES and dislikes/likes > DISLIKES_LIKES_PROPORTION
-      denun.hidden = True
+      denun.hidden = TRUE
     end
     return denun
   end
 
   def denun_params
-    params.require(:denun).permit(:name,:description)
+    params.require(:denun).permit :name, :description
   end
 end
 
