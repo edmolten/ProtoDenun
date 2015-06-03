@@ -5,6 +5,7 @@ class DenunsController < ApplicationController
 
   def new
     @denun = Denun.new
+    @types = DenunType.all
   end
 
   def create
@@ -46,7 +47,7 @@ class DenunsController < ApplicationController
   end
 
   def denun_params
-    params.require(:denun).permit :name, :description
+    params.require(:denun).permit :name, :description, :denun_types_id
   end
 end
 

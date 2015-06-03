@@ -21,7 +21,11 @@
     <td><%= denuncia.created_at.strftime("%Y-%m-%d") %></td>
     <td><%= denuncia.dislike %></td>
     <td><%= denuncia.like %></td>
-    <td><%= button_to "+1", {action: "like" ,id: denuncia.id} %></td>
+    <td>
+      <%= button_to "+1", {action: "like" ,id: denuncia.id} %>
+
+
+    </td>
     <td><%= button_to "-1", {action: "dislike" ,id: denuncia.id} %></td>
   </tr>
   <% end %>

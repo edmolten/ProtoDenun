@@ -1,5 +1,6 @@
 <%= simple_form_for @denun do |f| %>
     <%= f.input :name %>
     <%= f.input :description %>
+    <%= f.input :denun_types_id, collection:@types %>
     <%= f.button :submit %>
 <% end %>
