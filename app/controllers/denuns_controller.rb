@@ -15,7 +15,8 @@ class DenunsController < ApplicationController
   end
 
   def show_all
-    @denuncias = Denun.where hidden: FALSE
+    @visible_denuns = Denun.where hidden: FALSE
+    @comment = Comment.new #para luego agregar comentario a like o dislike
   end
 
   def like

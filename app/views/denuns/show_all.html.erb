@@ -13,20 +13,20 @@
     <th></th>
     <th></th>
   </tr>
-  <% @denuncias.each do |denuncia| %>
+  <% @visible_denuns.each do |denun| %>
   <tr>
-    <td><%= denuncia.id %></td>
-    <td><%= denuncia.name %></td>
-    <td><%= denuncia.description %></td>
-    <td><%= denuncia.created_at.strftime("%Y-%m-%d") %></td>
-    <td><%= denuncia.dislike %></td>
-    <td><%= denuncia.like %></td>
+    <td><%= denun.id %></td>
+    <td><%= denun.name %></td>
+    <td><%= denun.description %></td>
+    <td><%= denun.created_at.strftime("%Y-%m-%d") %></td>
+    <td><%= denun.dislike %></td>
+    <td><%= denun.like %></td>
     <td>
-      <%= button_to "+1", {action: "like" ,id: denuncia.id} %>
+      <%=  button_to "+1", {action: "like" ,id: denun.id} %>
 
 
     </td>
-    <td><%= button_to "-1", {action: "dislike" ,id: denuncia.id} %></td>
+    <td><%= button_to "-1", {action: "dislike" ,id: denun.id} %></td>
   </tr>
   <% end %>
 </table>
