@@ -11,14 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603013338) do
+ActiveRecord::Schema.define(version: 20150604011346) do
 
   create_table "comments", force: true do |t|
-    t.boolean  "like"
     t.text     "text"
     t.integer  "denuns_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_like"
+    t.integer  "likes"
+    t.integer  "dislikes"
   end
 
   create_table "denun_types", force: true do |t|
