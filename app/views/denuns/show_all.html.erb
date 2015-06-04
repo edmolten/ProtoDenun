@@ -26,7 +26,7 @@
           <%= f.text_field :text %>
           <%= f.submit '-1'%>
           <%= f.submit '+1'%>
-          <%= f.hidden_field :denunid, :value => denun.id %>
+          <%= f.hidden_field :denun_id, :value => denun.id %>
       <% end %></td>
     <td> <%=  button_to "+1", {action: "like" ,id: denun.id} %></td>
     <td><%= button_to "-1", {action: "dislike" ,id: denun.id} %></td>
