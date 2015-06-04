@@ -10,6 +10,7 @@
     <th>creada</th>
     <th>dislike</th>
     <th>like</th>
+    <th>comentario</th>
     <th></th>
     <th></th>
   </tr>
@@ -21,11 +22,13 @@
     <td><%= denun.created_at.strftime("%Y-%m-%d") %></td>
     <td><%= denun.dislike %></td>
     <td><%= denun.like %></td>
-    <td>
-      <%=  button_to "+1", {action: "like" ,id: denun.id} %>
-
-
-    </td>
+    <td> <%= form_for @comment, :url => denuns_comment_url, :method => :post do |f| %>
+          <%= f.text_field :text %>
+          <%= f.submit '-1'%>
+          <%= f.submit '+1'%>
+          <%= f.hidden_field :denunid, :value => denun.id %>
+      <% end %></td>
+    <td> <%=  button_to "+1", {action: "like" ,id: denun.id} %></td>
     <td><%= button_to "-1", {action: "dislike" ,id: denun.id} %></td>
   </tr>
   <% end %>

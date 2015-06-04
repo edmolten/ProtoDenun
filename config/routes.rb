@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   post 'denuns/like'
 
   post 'denuns/dislike'
+
+  post 'denuns/comment'
 end
