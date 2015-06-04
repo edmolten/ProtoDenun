@@ -35,21 +35,25 @@ class DenunsController < ApplicationController
   end
 
   def comment
+    denunid = params[:comment][:denun_id]
+    denun = Denun.find denunid
+    islike = FALSE
     if params[:commit] == '-1'
-      denun = Denun.find(params[:comment][:denun_id])
+      is_like = FALSE
       denun.dislike += 1
       denun = ocultar denun
-      denun.save
-      redirect_to denuns_show_all_path
     else
-      denun = Denun.find params[:comment][:denun_id]
+      islike = TRUE
       denun.like += 1
-      denun.save
-      redirect_to denuns_show_all_path
     end
+    denun.save
+    comment_text = params[:text]
+    comment = Comment.create :denuns_id => denunid, :text => comment_text, :is_like => islike
+    comment.save
+    redirect_to denuns_show_all_path
   end
 
-  def ocultar denun
+  def ocultar(denun)
     likes = denun.like
     dislikes = denun.dislike
     if likes == 0 and dislikes == 0
