@@ -1,5 +1,4 @@
 class DenunsController < ApplicationController
-
   MIN_DISLIKES = 10
   DISLIKES_LIKES_PROPORTION = 5/4
 
@@ -38,31 +37,26 @@ class DenunsController < ApplicationController
   def comment
     denunid = params[:denun]
     commid = params[:id]
+  #  commit = params[:commit]
     if params[:commit] != 'dislike' and params[:commit] != 'like'
       denunid = params[:comment][:denun_id]
-      denun = Denun.find denunid
     else
-      denun = Denun.find denunid
       comment = Comment.find commid
     end
     islike = FALSE
     if params[:commit] == 'dislike'
-      is_like = FALSE
-      comment.is_like = islike
       comment.dislikes += 1
       comment.save
       redirect_to denuns_show_all_path and return
     end
     if params[:commit] == 'like'
-      islike = TRUE
       comment.likes += 1
-      comment.is_like = islike
       comment.save
       redirect_to denuns_show_all_path and return
     end
     comment_text = params[:comment][:text]
     if !comment_text.blank?
-      comment = Comment.create :denun_id => denunid, :text => comment_text, :is_like => islike
+      comment = Comment.create :denun_id => denunid, :text => comment_text
       comment.save
       redirect_to denuns_show_all_path and return
     else

@@ -1,40 +1,44 @@
-<h1>Denuns#show_all</h1>
-<p>Find me in app/views/denuns/show_all.html.erb</p>
+<h1>Denuncias</h1>
+<br>
 
+<%= link_to 'Volver', root_path%>
+<br>
 
-<table style="width:100%">
+<table>
   <tr>
-    <th>id</th>
-    <th>nombre</th>
-    <th>descripcion</th>
-    <th>creada</th>
-    <th>dislike</th>
-    <th>like</th>
-    <th>comentario</th>
-    <th></th>
-    <th></th>
+    <th>Nombre</th>
+    <th>Descripcion</th>
+    <th>Creada</th>
+    <th>Like</th>
+    <th>Dislike</th>
+    <th>Comenta!</th>
+    <th>+1!</th>
+    <th>-1!</th>
   </tr>
   <% @visible_denuns.each do |denun| %>
-  <tr>
-    <td><%= denun.id %></td>
-    <td><%= denun.name %></td>
-    <td><%= denun.description %></td>
-    <td><%= denun.created_at.strftime("%Y-%m-%d") %></td>
-    <td><%= denun.dislike %></td>
-    <td><%= denun.like %></td>
-    <td> <%= form_for @comment, :url => denuns_comment_url, :method => :post do |f| %>
-          <%= f.text_field :text %>
-          <%= f.hidden_field :denun_id, :value => denun.id %>
-      <% end %>
-      <% @comment_all.each do |comm| %>
-          <ts><%= comm.text%>
-        <ts><%= comm.likes %> <%=  button_to "+1", {action: "comment" , denun: denun.id,id: comm.id, commit: 'like'} %></ts>
-        <ts><%= comm.dislikes %><%= button_to "-1", {action: "comment" ,denun: denun.id,id: comm.id, commit: 'dislike'} %></ts>
+      <tr>
+        <td><%= denun.name %></td>
+        <td style="width:300px;word-wrap:break-word;"><%= denun.description %></td>
+        <td><%= denun.created_at.strftime("%Y-%m-%d") %></td>
+        <td><%= denun.like %></td>
+        <td><%= denun.dislike %></td>
+        <td> <%= form_for @comment, :url => denuns_comment_url, :method => :post do |f| %>
+            <%= f.text_field :text %>
+            <%= f.hidden_field :denun_id, :value => denun.id %>
+            <%= f.submit 'Comentar' %>
+        <% end %>
+        </td>
+        <td><%= button_to "+1", {action: "like" ,id: denun.id} %></td>
+        <td><%= button_to "-1", {action: "dislike" ,id: denun.id} %></td>
+      </tr>
+      <tr><td>Comentarios:</td></tr>
+      <% @comment_all.where(:denun_id => denun.id).each do |comm| %>
+          <tr>
+            <td></td>
+            <td><%= comm.text%></td>
+            <td><%= comm.likes %> <%= button_to "+1", {action: "comment" , denun: denun.id, id: comm.id, commit: 'like'} %> </td>
+            <td><%= comm.dislikes %> <%= button_to "-1", {action: "comment" ,denun: denun.id, id: comm.id, commit: 'dislike'} %> </td>
+          </tr>
           <% end %>
-      </ts>
-    </td>
-    <td> <%=  button_to "+1", {action: "like" ,id: denun.id} %></td>
-    <td><%= button_to "-1", {action: "dislike" ,id: denun.id} %></td>
-  </tr>
-  <% end %>
+      <% end %>
 </table>

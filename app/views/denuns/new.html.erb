@@ -1,6 +1,6 @@
 <%= simple_form_for @denun do |f| %>
-    <%= f.input :name %>
-    <%= f.input :description %>
-    <%= f.input :denun_types_id, collection:@types %>
-    <%= f.button :submit %>
+    <%= f.input :name, label: "Nombre"  %>
+    <%= f.input :description,label: "Descripcion"  %>
+    <%= f.input :denun_type_id, collection: @types, label: "Tipo"  %>
+    <%= f.button :submit, value: 'Agregar' %>
 <% end %>
