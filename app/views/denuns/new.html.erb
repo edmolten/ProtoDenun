@@ -1,6 +1,13 @@
+<h1>Ingresa tu denuncia aqui</h1>
+
 <%= simple_form_for @denun do |f| %>
     <%= f.input :name, label: "Nombre"  %>
     <%= f.input :description,label: "Descripcion"  %>
-    <%= f.input :denun_type_id, collection: @types, label: "Tipo"  %>
+    <br>
+    <%= f.input :denun_type_id, collection: @types, label: "Tipo" , class: 'descripcion' %>
+    <br>
     <%= f.button :submit, value: 'Agregar' %>
+
 <% end %>
+<br>
+<%= link_to 'Volver', root_path%>
