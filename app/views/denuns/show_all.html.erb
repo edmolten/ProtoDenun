@@ -24,10 +24,15 @@
     <td><%= denun.like %></td>
     <td> <%= form_for @comment, :url => denuns_comment_url, :method => :post do |f| %>
           <%= f.text_field :text %>
-          <%= f.submit '-1'%>
-          <%= f.submit '+1'%>
           <%= f.hidden_field :denun_id, :value => denun.id %>
-      <% end %></td>
+      <% end %>
+      <% @comment_all.each do |comm| %>
+          <ts><%= comm.text%>
+        <ts><%= comm.likes %> <%=  button_to "+1", {action: "comment" , denun: denun.id,id: comm.id, commit: 'like'} %></ts>
+        <ts><%= comm.dislikes %><%= button_to "-1", {action: "comment" ,denun: denun.id,id: comm.id, commit: 'dislike'} %></ts>
+          <% end %>
+      </ts>
+    </td>
     <td> <%=  button_to "+1", {action: "like" ,id: denun.id} %></td>
     <td><%= button_to "-1", {action: "dislike" ,id: denun.id} %></td>
   </tr>

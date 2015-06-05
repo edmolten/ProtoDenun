@@ -17,6 +17,7 @@ class DenunsController < ApplicationController
   def show_all
     @visible_denuns = Denun.where hidden: FALSE
     @comment = Comment.new #para luego agregar comentario a like o dislike
+    @comment_all = Comment.all.order('likes DESC, dislikes ASC')
   end
 
   def like
@@ -35,22 +36,38 @@ class DenunsController < ApplicationController
   end
 
   def comment
-    denunid = params[:comment][:denun_id]
-    denun = Denun.find denunid
-    islike = FALSE
-    if params[:commit] == '-1'
-      is_like = FALSE
-      denun.dislike += 1
-      denun = ocultar denun
+    denunid = params[:denun]
+    commid = params[:id]
+    if params[:commit] != 'dislike' and params[:commit] != 'like'
+      denunid = params[:comment][:denun_id]
+      denun = Denun.find denunid
     else
-      islike = TRUE
-      denun.like += 1
+      denun = Denun.find denunid
+      comment = Comment.find commid
     end
-    denun.save
-    comment_text = params[:text]
-    comment = Comment.create :denuns_id => denunid, :text => comment_text, :is_like => islike
-    comment.save
-    redirect_to denuns_show_all_path
+    islike = FALSE
+    if params[:commit] == 'dislike'
+      is_like = FALSE
+      comment.is_like = islike
+      comment.dislikes += 1
+      comment.save
+      redirect_to denuns_show_all_path and return
+    end
+    if params[:commit] == 'like'
+      islike = TRUE
+      comment.likes += 1
+      comment.is_like = islike
+      comment.save
+      redirect_to denuns_show_all_path and return
+    end
+    comment_text = params[:comment][:text]
+    if !comment_text.blank?
+      comment = Comment.create :denun_id => denunid, :text => comment_text, :is_like => islike
+      comment.save
+      redirect_to denuns_show_all_path and return
+    else
+      redirect_to denuns_show_all_path and return
+    end
   end
 
   def ocultar(denun)

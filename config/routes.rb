@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   get 'denuns/new'
 
   get 'denuns/show_all'
-
   resources :denuns
 
   post 'denuns/like'
